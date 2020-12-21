@@ -16,16 +16,26 @@ def dificuldade(seleção_de_dificuldade_do_usuario):
     if seleção_de_dificuldade_do_usuario == 3: # caso a resposta seja 3 o nivel Difícil é selecionado e o usuario tem 3 tentativas
         return 3
 
+def pontuação(numero_erros, dificuldade_escolhida):
+    pontuação_inicial = 1000 # jogador começa com 1000
+    pontos_perdidos = numero_erros * (10*int(dificuldade_escolhida))
+    
+    pontuação_final = pontuação_inicial - pontos_perdidos
+
+    if pontuação_final < 0: return 0
+    else: return pontuação_final
+
+
         
 numero_de_chances = dificuldade(nivel)
 rodada = 1
 while True: 
     tentativa_do_usuario = int(input('Chute um numero de 0 a 100:'))
     if rodada >= numero_de_chances: # se o numero de rodadas for maior que o numero de chances o jogo para 
-        print(f'Você ultrapassou o número de tentativas sua pontuação foi igual a 0 e o número a ser advinhado era {numero_sorteado}')
+        print(f'Você ultrapassou o número de tentativas sua pontuação foi igual a {pontuação(rodada, nivel)}. O número a ser advinhado era {numero_sorteado}')
         break
     elif numero_sorteado == tentativa_do_usuario:
-        print(f'Parabéns! Você acertou o número secreto! Você levou {rodada} rodadas para acertar')
+        print(f'Parabéns! Você acertou o número secreto! Você levou {rodada} rodadas para acertar e obteve {pontuação(rodada, nivel)}')
         break
     else:  # se o numero de rodadas for menor que o numero de chances
         rodada += 1
