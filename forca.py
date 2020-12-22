@@ -1,0 +1,2 @@
+def jogar():
+    pass
