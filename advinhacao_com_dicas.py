@@ -5,7 +5,7 @@ def jogar():
     print('**************************')
 
     numero_sorteado = randrange(0 , 101) # numero aleatório de 0 a 100 
-    print(numero_sorteado)
+    
     nivel = int(input('Qual nivel você deseja jogar? Fácil(1), Médio(2), Difícil(3)')) # Faz uma pergunta ao usuario
 
     def dificuldade(seleção_de_dificuldade_do_usuario):
