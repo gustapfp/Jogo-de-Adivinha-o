@@ -7,11 +7,11 @@ int main() {
     printf("****************************\n");
 
     int guess; 
-    int lost_points;
+    double lost_points;
     
     int secret_number = 27;
     int attempts = NUMBER_OF_CHANCES;  // number of chances the user still have
-    int points = 1000;
+    double points = 1000.0;
 
     printf("The secret number is: %d\n", secret_number);
    
@@ -48,7 +48,7 @@ int main() {
    for (int i=1; i<= NUMBER_OF_CHANCES; i++)
     {
         printf("Guess the secret number: \n");
-        printf("You still have %d chances and %d points left \n", attempts, points)/
+        printf("You still have %d chances and %.2f points left \n", attempts, points)/
         scanf("%d", &guess); // %d to int's
         printf("You guessed: %d \n ", guess);
 
@@ -63,7 +63,7 @@ int main() {
 
         if (right_answer) {
             printf("Congratulations, you guessed the secret number! :o\n");
-            printf("You won the game with %d chances left and %d points! ;)\n", attempts, points);
+            printf("You won the game with %d chances left and %.2f points! ;)\n", attempts, points);
             break;
         }
         else if(bigger) {
@@ -78,7 +78,7 @@ int main() {
             
         }
         attempts -= 1;
-        lost_points = (guess - right_answer) / 2;
+        lost_points = (guess - right_answer) / 2.0;
         points = points - lost_points;
       
     }
@@ -86,7 +86,7 @@ int main() {
 
     if (lose_game) {
         points = 0;
-        printf("You lost! You don't have more chances and you finished the game with %d points! :(\n", points);
+        printf("You lost! You don't have more chances and you finished the game with %f points! :(\n", points);
         printf("The Correct Number was:%d \n", secret_number);
     }
     
