@@ -120,9 +120,7 @@ def jogar():
 
         print(" |            ")
         print("_|___         ")
-        print()
-
-    palavra_escolhida, letras_ocultas = escolhe_palavra(escolhe_tema) 
+        print()    palavra_escolhida, letras_ocultas = escolhe_palavra(escolhe_tema) 
     # palavra_escolhida é a palavra sorteada para o úsuario
     # palavras ocultas é a palavra que será mostra para o usuario em forma de _
     
