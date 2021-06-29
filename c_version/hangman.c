@@ -7,11 +7,12 @@ void greetings() {
     printf("**************************************\n");
 }
 
-void new_guess(char word[26], int round) {
+void new_guess(char word[26], int* round) {
     char guess;
     printf("Choose a lether:");
     scanf(" %c", &guess);
-    word[round] = guess;
+    word[*round] = guess;
+    (*round)++;
 }
 int main() {
 
@@ -47,8 +48,7 @@ int main() {
                 }          
             }
         printf("\n");
-        new_guess(word_guessed, rounds);
-        rounds++;
+        new_guess(word_guessed, &rounds);
         }while (!hanged && !right_answer);
     
     
