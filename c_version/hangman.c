@@ -1,6 +1,21 @@
 #include <stdio.h>
 #include <string.h>
+
+void greetings() {
+    printf("**************************************\n");
+    printf("  *  Welcome to the hangman game!  *  \n");
+    printf("**************************************\n");
+}
+
+void new_guess(char word[26], int round) {
+    char guess;
+    printf("Choose a lether:");
+    scanf(" %c", &guess);
+    word[round] = guess;
+}
 int main() {
+
+    greetings();
 
     char secret_word[20];
     sprintf(secret_word, "banana");
@@ -32,12 +47,7 @@ int main() {
                 }          
             }
         printf("\n");
-        
-        char guess;
-        printf("Choose a lether:");
-        scanf(" %c", &guess);
-
-        word_guessed[rounds] = guess;
+        new_guess(word_guessed, rounds);
         rounds++;
         }while (!hanged && !right_answer);
     
