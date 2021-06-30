@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include "hangman.h"
 
 char secret_word[20];
 char word_guessed[26];
 int rounds = 0;
+
 
 void greetings() {
     printf("**************************************\n");
@@ -42,8 +46,63 @@ void hangman() {
     }
 }
 
+// void cant_open_file(f) {
+//     if (f==0) {
+//         printf("Sorry, appears we are having some problems trying to open the file\n\n");
+//         exit(1);
+//     }
+// }
+void add_new_word() {
+    char want;
+    printf("You want to add a new word on our base [Y/N]?\n");
+    scanf(" %c",&want);
+
+    if (want == 'y' || want == 'Y') {
+        char new_word[20];
+        printf("Write the new word: ");
+        scanf("%s", new_word);
+
+        FILE* f;
+        f = fopen("words_list.txt", "r+");
+        if (f==0) {
+        printf("Sorry, appears we are having some problems trying to open the file\n\n");
+        exit(1);
+        }
+        
+        int number_of_words;
+        fscanf(f, "%d", &number_of_words);
+        number_of_words++;
+
+        fseek(f, 0, SEEK_SET);
+        fprintf(f, "%d", number_of_words);
+
+
+        fseek(f, 0, SEEK_END);
+        fprintf(f, "\n%s", new_word);
+
+        fclose(f);
+
+    }
+}
 void choose_secret_word() {
-    sprintf(secret_word, "banana");
+    FILE* f;
+    f = fopen("words_list.txt", "r");
+    if (f==0) {
+        printf("Sorry, appears we are having some problems trying to open the file\n\n");
+        exit(1);
+    }
+
+    int number_of_words;
+    fscanf(f, "%d", &number_of_words);
+    
+    srand(time(0));
+    
+    int random = rand() % number_of_words;
+
+    for(int i = 0; i <= random; i++) {
+        fscanf(f, "%s", secret_word);
+    }
+    fclose(f);
 }
 
 int hanged() {
@@ -65,10 +124,16 @@ int hanged() {
     return  cont_wrong_guesses >= 5;
 }
 
+int win() {
+    for(int i = 0; strlen(secret_word); i++) {
+        if(!check_guess(secret_word[i])) {
+            return 0;}
+    }
+    return 1;
+}
+
 int main() {
 
-    int right_answer = 0;
-    
     choose_secret_word();
     greetings();
 
@@ -77,6 +142,8 @@ int main() {
         hangman();
         printf("\n");
         new_guess(word_guessed);
-        } while (!hanged() && !right_answer);  
+        } while (!hanged() && !win());  
+    
+    add_new_word();
     
 }
